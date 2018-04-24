@@ -15,7 +15,7 @@ const waitSeconds = (seconds = 2) => (
   })
 )
 
-const seconds = 2
+const defaultSeconds = '2'
 
 const server = port => {
   return new Promise((resolve, reject) => {
@@ -28,6 +28,8 @@ const server = port => {
       next()
     })
     app.get('/data1', (req, res) => {
+      const seconds = parseInt(req.query.seconds || defaultSeconds);
+
       waitSeconds(seconds)
         .then(() => {
           res.json({ data: 'Data-1' })
@@ -35,16 +37,27 @@ const server = port => {
     })
 
     app.get("/data2", (req, res) => {
+      const seconds = req.query.seconds || defaultSeconds;
       waitSeconds(seconds).then(() => {
         res.json({ data: "Data-2" });
       });
     })
 
     app.get("/data3", (req, res) => {
+      const seconds = req.query.seconds || defaultSeconds;
+
       waitSeconds(seconds).then(() => {
         res.json({ data: "Data-3" });
       });
-    })
+    });
+
+    app.get("/data4", (req, res) => {
+      const seconds = req.query.seconds || defaultSeconds;
+
+      waitSeconds(seconds).then(() => {
+        res.json({ data: "Data-4" });
+      });
+    });
 
     server.listen(port, () => {
       console.log(`Listening on ${port} ${__dirname}`);
