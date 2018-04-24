@@ -5,7 +5,7 @@
     fetch(api)
       .then(res => res.json())
       .catch(err => {
-        alert(JSON.stringify(err))
+        alert(`This alert raised from in fetch it's catch when refreshig the page during fetch call, with an empty error: ${JSON.stringify(err)}`)
       })
   )
 
